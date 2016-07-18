@@ -2,13 +2,20 @@
 require_once 'settings.php';
 require_once 'apiaccess.php';
 $apiaccessfunction = new apiaccessfunction();
-$apiaccessfunction->access_url = API_URL.'events/'.OAUTH_TOKEN_VARIABLE;
+$apiaccessfunction->access_url = API_URL.'events/search'.OAUTH_TOKEN_VARIABLE;
 $events = $apiaccessfunction->apidategetfunction();
 // echo "<pre>";
 // print_r($events);
 // echo "</pre>";
 ?>
+<?php 
 
+if(isset($_POST['city'])){ $city = $_POST['city']; } 
+if(isset($_POST['startdate'])){ $startdate = $_POST['startdate']; }
+if(isset($_POST['enddate'])){ $enddate = $_POST['enddate']; } 
+if(isset($_POST['key'])){ $key = $_POST['key']; } 
+
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -247,30 +254,27 @@ $events = $apiaccessfunction->apidategetfunction();
 
                         <div class="eventform-con clearfix">
 
-                            <form>
+                           <form action="event.php" method="GET">
                                 <div class="form-input search-location">
-                                    <input type="text" value="" placeholder="Select Location">
+                                    <input type="text" name="city" value="" placeholder="Select Location">
                                     <i class="icon icon-s fa fa-search"></i>
                                     <button class="icon fa fa-globe"></button>
                                 </div>
 
                                 <div class="form-input datepicker">
-                                    <input placeholder="mm/dd/yy" class="date_timepicker_start">
+                                    <input name="startdate" placeholder="mm/dd/yy" class="date_timepicker_start">
                                     <button type="button"  value="open" class="open icon fa fa-calendar"></button>
                                 </div>
 
 
                                 <div class="form-input datepicker">
-                                    <input placeholder="dd/mm/yy" class="date_timepicker_end" >
-                                    <button type="button" value="open" class="end icon fa fa-calendar"></button>
+                                    <input name="enddate" placeholder="dd/mm/yy" class="date_timepicker_end" >
+                                    <button type="button"  value="open" class="end icon fa fa-calendar"></button>
                                 </div>
 
                                 <div class="form-input">
                                     <div class="styled-select">
-                                        <select>
-                                            <option>Select Fields</option>
-                                            <option>The second option</option>
-                                        </select>
+                                      <input type="text" name="key" value="" placeholder="Select Key">
                                     </div>
                                 </div>
 
