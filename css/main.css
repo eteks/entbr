@@ -853,8 +853,8 @@ input:focus,textarea:focus{
 }
 
 .event .title{
-	font-size:18px;
-	font-weight:700;
+	font-size:15px;
+	font-weight:600;
 	margin-bottom:8px;
 	color:#2c3e50;
 }

@@ -109,6 +109,7 @@ $events = $apiaccessfunction->apidategetfunction();
                                 <li><a href="event.html">Event</a></li>
                                 <li><a href="event-sidebar-left.html">Event-Sidebar-Left</a></li>
                                 <li><a href="event-sidebar-right.html">Event-Sidebar-Right</a></li>
+                                 <li><a href="format.php">format</a></li>
                                 <li><a href="event-detail.html">Event Detail</a></li>
                             </ul>
                         </li>

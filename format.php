@@ -2,8 +2,8 @@
 	require_once 'settings.php';
 	require_once 'apiaccess.php';
 	$apiaccessfunction = new apiaccessfunction();
-	$apiaccessfunction->access_url = API_URL.'categories'.OAUTH_TOKEN_VARIABLE;
-	$categories_data = $apiaccessfunction->apidategetfunction();
+	$apiaccessfunction->access_url = API_URL.'formats'.OAUTH_TOKEN_VARIABLE;
+	$formats_data = $apiaccessfunction->apidategetfunction();
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -123,13 +123,13 @@
     	</div>
 	</header> <!-- header -->  
 	<!-- Banner -->
-	<div class="banner">
+<!-- <!-- <!-- 	<div class="banner">
 	    <div class="container">
 	        <div class="center">
 	            <h1 class="title">Get Ready for The Next Event. Its Begining!</h1>
 	            <p>Etiam tristique ornare massa. Suspendisse in porta mauris. Phasellus quis libero eget diam tincidunt ornare. Suspendisse et libero urna. Cras auctor cursus purus, eget fringilla tellus dictum tempus. Ut gravida laoreet tincidunt. </p>
 	            <!-- Clock -->
-	            <div class="clock clearfix">
+<!-- 	            <div class="clock clearfix">
 	                <div class="clock-item clock-days ">
 	                    <div class="wrap">
 	                        <div class="inner">
@@ -181,8 +181,8 @@
 	            </div>
 	        </div>     
 	    </div>
-	</div>
-	<!-- Event Form -->
+	</div> --> 
+	<!-- Event Form --> 
 	<section class="eventform newsection">
 	    <div class="container">
 	        <div class="row">
@@ -228,7 +228,7 @@
 	        <!-- Tabs memu -->
 	        <div class="tabs">
 	            <ul class="clearfix">
-	                <li><a href="#tabs-1">Categories</a></li>
+	                <li><a href="#tabs-1">formats</a></li>
 	            </ul>
 				
 	            <!--  Tabs-1 -->
@@ -236,7 +236,7 @@
 	                <div class="event-container">
 	                    <div class="row">
 	                    	<?php 
-	                    	foreach ($categories_data['categories'] as $key => $value) {
+	                    	foreach ($formats_data['formats'] as $key => $value) {
 	                    	?>
 	                        <div class="col-md-3">
 	                            <div class="event">

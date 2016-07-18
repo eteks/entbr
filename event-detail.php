@@ -3,7 +3,12 @@
 	require_once 'apiaccess.php';
 	$apiaccessfunction = new apiaccessfunction();
 	$apiaccessfunction->access_url = API_URL.'events/'.$_GET['event_id'].OAUTH_TOKEN_VARIABLE;
-	$subcategories_data = $apiaccessfunction->apidategetfunction();
+        $eventdetails_data = $apiaccessfunction->apidategetfunction();
+	//echo API_URL.'events/'.$_GET['event_id'].OAUTH_TOKEN_VARIABLE;
+    // $apiaccessfunction->access_url = API_URL.'venues/'.$_GET['venues_id'].OAUTH_TOKEN_VARIABLE;
+
+    // $venues_data = $apiaccessfunction->apidategetfunction();
+
 	
 ?>
 <!DOCTYPE html>
@@ -106,6 +111,7 @@
                                 <li><a href="event.html">Event</a></li>
                                 <li><a href="event-sidebar-left.html">Event-Sidebar-Left</a></li>
                                 <li><a href="event-sidebar-right.html">Event-Sidebar-Right</a></li>
+                                <li><a href="format.php">format</a></li>
                                 <li><a href="event-detail.html">Event Detail</a></li>
                             </ul>
                         </li>
@@ -146,290 +152,44 @@
             <!-- col-md-9 -->
             <div class="col-md-9 col-sm-9">
                 <!--Event Detail  -->
+          
                 <section class="event-detail newsection">
-                    <h2 class="main-title "><a href="#">Event Name Using Social Services Increase Your Sales</a></h2>
+                    <h2 class="main-title "><a href="#"><?php echo $eventdetails_data['name']['text'] ; ?></a></h2>
                     <!-- meta -->
                     <ul class="meta clearfix">
-                        <li class="date"><i class="icon fa fa-calendar"></i> Feb 17-19, 2014</li>
+                        <li class="date"><i class="icon fa fa-calendar"></i> <?php echo $eventdetails_data['start']['local'] ; ?></li>
                         <li><a href="#"><i class="icon fa fa-home"></i> Grand Hotel Califonria</a></li>
                         <li><a href="#"><i class="icon fa fa-map-marker"></i>Istanbul / Turkey</a></li>
                     </ul>
                     <!-- event-detail-img -->
                     <div class="event-detail-img">
-                        <img src="img/870x460.gif" alt="">
+                        <?php
+                                	if($eventdetails_data['logo'] != null){
+                                	?>	
+                                		<img src="<?php echo $eventdetails_data['logo']['url'] ; ?>" alt="">
+                                	<?php
+                                	}else{
+                                	?>
+                                		<img src="img/515x390.gif" alt="">
+                                	<?php	
+                                	}
+                                	?>
                     </div>
 
                     <h3 class="title">Whats About</h3>
 
-                    <p>Suspendisse eleifend interdum ipsum, sed auctor nulla scelerisque id. Suspendisse convallis arcu nec sapien facilisis, eget feugiat lacus pretium. Suspendisse lectus libero, adipiscing quis mollis iaculis, molestie et tortor. Phasellus at aliquet lacus. Maecenas non egestas tellus. Morbi porttitor vehicula neque, et rhoncus metus lacinia eget. Mauris mattis eu purus ac aliquet. Vivamus semper enim eros, ac consectetur lacus tristique et. Nullam posuere risus nec lectus facilisis tincidunt. Quisque adipiscing est lobortis lacus tincidunt tincidunt. Pellentesque id neque ac ipsum sagittis congue. </p>
+                    <p><?php echo $eventdetails_data['description']['text'] ; ?></p>
 
-                    <!-- Social Icon -->
-                    <div class="social-icon">
-                        <a href="#" class="facebook facebook-pagle">FACEBOOK PAGE</a>
-                        <a href="#" class="facebook fa fa-facebook"></a>
-                        <a href="#" class="twitter fa fa-twitter"></a>
-                        <a href="#" class=" googleplus fa fa-google-plus"></a>
-                        <a href="#" class="vimeo fa fa-vimeo-square"></a>
-                        <a href="#" class="linkedin fa fa-linkedin"></a>
-                    </div>
+              
                 </section>
 
-                <!-- speakers-tabs -->
-                <section class="speakers-tabs newsection">
-                    <h2 class="title">Schedule with Speakers</h2>
-                    <div id="speakers-tabs">    
-
-                        <ul class="speaker-ul resp-tabs-list clearfix">
-                            <li>Monday, 9th</li>
-                            <li>Tuesday, 11th</li>
-                            <li>Wednesday, 12th</li>
-                            <li>Monday, 9th</li>
-                        </ul>
-                        <div class="resp-tabs-container">     
-                            <div>
-                                <div class="speakers"> 	
-                                    <div class="speaker clearfix">
-                                        <div class="speaker-img">
-                                           <img src="img/515x390.gif" alt="">					                                    
-                                        </div>
-                                        <div class="speaker-content">
-                                            <p class="author">Jane Crowley <span class="job">Web Expert</span></p>
-                                            <h3 class="title"><a href="#">Using Social Services Increase Your Sales </a></h3>
-                                            <ul class="meta clearfix">
-                                                <li><i class="icon fa fa-times-circle-o"></i>08:00 to 18:00 pm</li>
-                                                <li><a href="#"><i class="icon fa fa-map-marker"></i>Hall B</a></li>
-                                            </ul>
-                                            <p>Aliquam id metus purus. Aliquam ultricies massa a eros euismod mattis. Nunc commodo enim at commodo pellentesque. Etiam turpis eros, lobortis non libero vel, pharetra iaculis augue. [...] </p>
-                                            <a href="#" class="btn btn-border">read more</a> <a href="#" class="btn btn-border">About Speaker</a>
-                                        </div>
-                                    </div>
-                                    <div class="bar"><p><i class="icon fa fa-glass"></i>LETS HAVE A BREAK, ENJOY IT</p></div>
-                                </div> 
-
-                                <div class="speakers"> 	
-                                    <div class="speaker clearfix">
-                                        <div class="speaker-img">
-                                           <img src="img/515x390.gif" alt="">				                                    
-                                        </div>
-                                        <div class="speaker-content">
-                                            <p class="author">Yaris Crowley <span class="job">Web Expert</span></p>
-                                            <h3 class="title"><a href="#">Using Social Services Increase Your Sales </a></h3>
-                                            <ul class="meta clearfix">
-                                                <li><i class="icon fa fa-times-circle-o"></i>08:00 to 18:00 pm</li>
-                                                <li><a href="#"><i class="icon fa fa-map-marker"></i>Hall B</a></li>
-                                            </ul>
-                                            <p>Aliquam id metus purus. Aliquam ultricies massa a eros euismod mattis. Nunc commodo enim at commodo pellentesque. Etiam turpis eros, lobortis non libero vel, pharetra iaculis augue. [...] </p>
-                                            <a href="#" class="btn btn-border">read more</a> <a href="#" class="btn btn-border">About Speaker</a>
-                                        </div>
-                                    </div>
-                                    <div class="bar"><p><i class="icon fa fa-glass"></i>LETS HAVE A BREAK, ENJOY IT</p></div>
-                                </div>
-
-                                <div class="speakers"> 	
-                                    <div class="speaker clearfix">
-                                        <div class="speaker-img">
-                                           <img src="img/515x390.gif" alt="">			                                    
-                                        </div>
-                                        <div class="speaker-content">
-                                            <p class="author">Jane Crowley <span class="job">Web Expert</span></p>
-                                            <h3 class="title"><a href="#">Using Social Services Increase Your Sales </a></h3>
-                                            <ul class="meta clearfix">
-                                                <li><i class="icon fa fa-times-circle-o"></i>08:00 to 18:00 pm</li>
-                                                <li><a href="#"><i class="icon fa fa-map-marker"></i>Hall B</a></li>
-                                            </ul>
-                                            <p>Aliquam id metus purus. Aliquam ultricies massa a eros euismod mattis. Nunc commodo enim at commodo pellentesque. Etiam turpis eros, lobortis non libero vel, pharetra iaculis augue. [...] </p>
-                                            <a href="#" class="btn btn-border">read more</a> <a href="#" class="btn btn-border">About Speaker</a>
-                                        </div>
-                                    </div>
-                                    <div class="bar"><p><i class="icon fa fa-glass"></i>LETS HAVE A BREAK, ENJOY IT</p></div>
-                                </div>
-
-                                <div class="speakers"> 	
-                                    <div class="speaker clearfix">
-                                        <div class="speaker-img">
-                                           <img src="img/515x390.gif" alt="">					                                    
-                                        </div>
-                                        <div class="speaker-content">
-                                            <p class="author">Yaris Crowley <span class="job">Web Expert</span></p>
-                                            <h3 class="title"><a href="#">Using Social Services Increase Your Sales </a></h3>
-                                            <ul class="meta clearfix">
-                                                <li><i class="icon fa fa-times-circle-o"></i>08:00 to 18:00 pm</li>
-                                                <li><a href="#"><i class="icon fa fa-map-marker"></i>Hall B</a></li>
-                                            </ul>
-                                            <p>Aliquam id metus purus. Aliquam ultricies massa a eros euismod mattis. Nunc commodo enim at commodo pellentesque. Etiam turpis eros, lobortis non libero vel, pharetra iaculis augue. [...] </p>
-                                            <a href="#" class="btn btn-border">read more</a> <a href="#" class="btn btn-border">About Speaker</a>
-                                        </div>
-                                    </div>
-                                    <div class="bar">
-                                        <p><i class="icon fa fa-glass"></i>LETS HAVE A BREAK, ENJOY IT</p>
-                                    </div>
-                                </div>
-                            </div> 
-
-                            <div>
-                                <div class="speakers">  
-                                    <div class="speaker clearfix">
-                                        <div class="speaker-img">
-                                           <img src="img/515x390.gif" alt="">                                                     
-                                        </div>
-                                        <div class="speaker-content">
-                                            <p class="author">Jane Crowley <span class="job">Web Expert</span></p>
-                                            <h3 class="title"><a href="#">Using Social Services Increase Your Sales </a></h3>
-                                            <ul class="meta clearfix">
-                                                <li><i class="icon fa fa-times-circle-o"></i>08:00 to 18:00 pm</li>
-                                                <li><a href="#"><i class="icon fa fa-map-marker"></i>Hall B</a></li>
-                                            </ul>
-                                            <p>Aliquam id metus purus. Aliquam ultricies massa a eros euismod mattis. Nunc commodo enim at commodo pellentesque. Etiam turpis eros, lobortis non libero vel, pharetra iaculis augue. [...] </p>
-                                            <a href="#" class="btn btn-border">read more</a> <a href="#" class="btn btn-border">About Speaker</a>
-                                        </div>
-                                    </div>
-                                    <div class="bar"><p><i class="icon fa fa-glass"></i>LETS HAVE A BREAK, ENJOY IT</p></div>
-                                </div> 
-                                <div class="speakers">  
-                                    <div class="speaker clearfix">
-                                        <div class="speaker-img">
-                                           <img src="img/515x390.gif" alt="">                                                  
-                                        </div>
-                                        <div class="speaker-content">
-                                            <p class="author">Yaris Crowley <span class="job">Web Expert</span></p>
-                                            <h3 class="title"><a href="#">Using Social Services Increase Your Sales </a></h3>
-                                            <ul class="meta clearfix">
-                                                <li><i class="icon fa fa-times-circle-o"></i>08:00 to 18:00 pm</li>
-                                                <li><a href="#"><i class="icon fa fa-map-marker"></i>Hall B</a></li>
-                                            </ul>
-                                            <p>Aliquam id metus purus. Aliquam ultricies massa a eros euismod mattis. Nunc commodo enim at commodo pellentesque. Etiam turpis eros, lobortis non libero vel, pharetra iaculis augue. [...] </p>
-                                            <a href="#" class="btn btn-border">read more</a> <a href="#" class="btn btn-border">About Speaker</a>
-                                        </div>
-                                    </div>
-                                    <div class="bar"><p><i class="icon fa fa-glass"></i>LETS HAVE A BREAK, ENJOY IT</p></div>
-                                </div>
-
-                                <div class="speakers">  
-                                    <div class="speaker clearfix">
-                                        <div class="speaker-img">
-                                           <img src="img/515x390.gif" alt="">                                              
-                                        </div>
-                                        <div class="speaker-content">
-                                            <p class="author">Jane Crowley<span class="job">Web Expert</span></p>
-                                            <h3 class="title"><a href="#">Using Social Services Increase Your Sales </a></h3>
-                                            <ul class="meta clearfix">
-                                                <li><i class="icon fa fa-times-circle-o"></i>08:00 to 18:00 pm</li>
-                                                <li><a href="#"><i class="icon fa fa-map-marker"></i>Hall B</a></li>
-                                            </ul>
-                                            <p>Aliquam id metus purus. Aliquam ultricies massa a eros euismod mattis. Nunc commodo enim at commodo pellentesque. Etiam turpis eros, lobortis non libero vel, pharetra iaculis augue. [...] </p>
-                                            <a href="#" class="btn btn-border">read more</a> <a href="#" class="btn btn-border">About Speaker</a>
-                                        </div>
-                                    </div>
-                                    <div class="bar"><p><i class="icon fa fa-glass"></i>LETS HAVE A BREAK, ENJOY IT</p></div>
-                                </div>
-
-                                <div class="speakers">  
-                                    <div class="speaker clearfix">
-                                        <div class="speaker-img">
-                                           <img src="img/515x390.gif" alt="">                                                       
-                                        </div>
-                                        <div class="speaker-content">
-                                            <p class="author">Jane Crowley <span class="job"> Web Expert</span></p>
-                                            <h3 class="title"><a href="#">Using Social Services Increase Your Sales </a></h3>
-                                            <ul class="meta clearfix">
-                                                <li><i class="icon fa fa-times-circle-o"></i>08:00 to 18:00 pm</li>
-                                                <li><a href="#"><i class="icon fa fa-map-marker"></i>Hall B</a></li>
-                                            </ul>
-                                            <p>Aliquam id metus purus. Aliquam ultricies massa a eros euismod mattis. Nunc commodo enim at commodo pellentesque. Etiam turpis eros, lobortis non libero vel, pharetra iaculis augue. [...] </p>
-                                            <a href="#" class="btn btn-border">read more</a> <a href="#" class="btn btn-border">About Speaker</a>
-                                        </div>
-                                    </div>
-                                    <div class="bar">
-                                        <p><i class="icon fa fa-glass"></i>LETS HAVE A BREAK, ENJOY IT</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div>
-                                <div class="speakers">  
-                                    <div class="speaker clearfix">
-                                        <div class="speaker-img">
-                                           <img src="img/515x390.gif" alt="">                                                     
-                                        </div>
-                                        <div class="speaker-content">
-                                            <p class="author">Jane Crowley <span class="job">Web Expert</span></p>
-                                            <h3 class="title"><a href="#">Using Social Services Increase Your Sales </a></h3>
-                                            <ul class="meta clearfix">
-                                                <li><i class="icon fa fa-times-circle-o"></i>08:00 to 18:00 pm</li>
-                                                <li><a href="#"><i class="icon fa fa-map-marker"></i>Hall B</a></li>
-                                            </ul>
-                                            <p>Aliquam id metus purus. Aliquam ultricies massa a eros euismod mattis. Nunc commodo enim at commodo pellentesque. Etiam turpis eros, lobortis non libero vel, pharetra iaculis augue. [...] </p>
-                                            <a href="#" class="btn btn-border">read more</a> <a href="#" class="btn btn-border">About Speaker</a>
-                                        </div>
-                                    </div>
-                                    <div class="bar"><p><i class="icon fa fa-glass"></i>LETS HAVE A BREAK, ENJOY IT</p></div>
-                                </div> 
-                                <div class="speakers">  
-                                    <div class="speaker clearfix">
-                                        <div class="speaker-img">
-                                           <img src="img/515x390.gif" alt="">                                                  
-                                        </div>
-                                        <div class="speaker-content">
-                                            <p class="author">Yaris Crowley <span class="job"> Web Expert</span></p>
-                                            <h3 class="title"><a href="#">Using Social Services Increase Your Sales </a></h3>
-                                            <ul class="meta clearfix">
-                                                <li><i class="icon fa fa-times-circle-o"></i>08:00 to 18:00 pm</li>
-                                                <li><a href="#"><i class="icon fa fa-map-marker"></i>Hall B</a></li>
-                                            </ul>
-                                            <p>Aliquam id metus purus. Aliquam ultricies massa a eros euismod mattis. Nunc commodo enim at commodo pellentesque. Etiam turpis eros, lobortis non libero vel, pharetra iaculis augue. [...] </p>
-                                            <a href="#" class="btn btn-border">read more</a> <a href="#" class="btn btn-border">About Speaker</a>
-                                        </div>
-                                    </div>
-                                    <div class="bar"><p><i class="icon fa fa-glass"></i>LETS HAVE A BREAK, ENJOY IT</p></div>
-                                </div>
-
-                            </div>
-
-                            <div>
-                                <div class="speakers">  
-                                    <div class="speaker clearfix">
-                                        <div class="speaker-img">
-                                           <img src="img/515x390.gif" alt="">                                                       
-                                        </div>
-                                        <div class="speaker-content">
-                                            <p class="author">Jane Crowley <span class="job">Web Expert</span></p>
-                                            <h3 class="title"><a href="#">Using Social Services Increase Your Sales </a></h3>
-                                            <ul class="meta clearfix">
-                                                <li><i class="icon fa fa-times-circle-o"></i>08:00 to 18:00 pm</li>
-                                                <li><a href="#"><i class="icon fa fa-map-marker"></i>Hall B</a></li>
-                                            </ul>
-                                            <p>Aliquam id metus purus. Aliquam ultricies massa a eros euismod mattis. Nunc commodo enim at commodo pellentesque. Etiam turpis eros, lobortis non libero vel, pharetra iaculis augue. [...] </p>
-                                            <a href="#" class="btn btn-border">read more</a> <a href="#" class="btn btn-border">About Speaker</a>
-                                        </div>
-                                    </div>
-                                    <div class="bar">
-                                        <p><i class="icon fa fa-glass"></i>LETS HAVE A BREAK, ENJOY IT</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> 
-                    </div>   
-
-                </section> 
-                <!-- Speaker Event -->
+            
                 <section class="speaker-event newsection">
-                    <h2 class="title">Speakers of Event </h2>
-
-                    <!-- owl slider  -->
-                    <div class="owl-team">
-
+                 
                         <div class="event">
-                            <div class="eventsimg">
-                                <img src="img/515x390.gif" alt="">
-                            </div>
+                       
                             <div class="event-content">
-                                <h3 class="title">Yaris Crowley</h3>
-                                <p class="job">Ceo on Google Inc</p>
-                                <p>Lorem ipsum dolor sit amet, feugiat delicata id cum, eu sit. [...] </p>
-
-                            </div>
-                            <div class="social-icon">
-                                <a href="#" class="email fa fa-envelope-o"></a><a href="#" class="facebook fa fa-facebook"></a><a href="#" class="fa linkedin fa-linkedin"></a><a href="#" class="googleplus fa fa-google-plus"></a><a href="#" class="twitter fa fa-twitter"></a>
+                           
 
                             </div>
                         </div>
@@ -437,197 +197,10 @@
 
 
                         <div class="event">
-                            <div class="eventsimg">
-                                <img src="img/515x390.gif" alt="">
-                            </div>
-                            <div class="event-content">
-                                <h3 class="title">Jane Crowley</h3>
-                                <p class="job">Ceo on Google Inc</p>
-                                <p>Lorem ipsum dolor sit amet, feugiat delicata id cum, eu sit. [...] </p>
-
-                            </div>
-                            <div class="social-icon">
-                                <a href="#" class="email fa fa-envelope-o"></a><a href="#" class="facebook fa fa-facebook"></a><a href="#" class="fa linkedin fa-linkedin"></a><a href="#" class="googleplus fa fa-google-plus"></a><a href="#" class="twitter fa fa-twitter"></a>
-
-                            </div>
+                
                         </div>
 
 
-
-                        <div class="event">
-                            <div class="eventsimg">
-                                <img src="img/515x390.gif" alt="">
-                            </div>
-                            <div class="event-content">
-                                <h3 class="title">Yaris Crowley</h3>
-                                <p class="job">Ceo on Google Inc</p>
-                                <p>Lorem ipsum dolor sit amet, feugiat delicata id cum, eu sit. [...] </p>
-
-                            </div>
-                            <div class="social-icon">
-                                <a href="#" class="email fa fa-envelope-o"></a><a href="#" class="facebook fa fa-facebook"></a><a href="#" class="fa linkedin fa-linkedin"></a><a href="#" class="googleplus fa fa-google-plus"></a><a href="#" class="twitter fa fa-twitter"></a>
-                            </div>
-                        </div>
-
-
-
-                        <div class="event">
-                            <div class="eventsimg">
-                                <img src="img/515x390.gif" alt="">
-                            </div>
-                            <div class="event-content">
-                                <h3 class="title">Jane Crowley</h3>
-                                <p class="job">Ceo on Google Inc</p>
-                                <p>Lorem ipsum dolor sit amet, feugiat delicata id cum, eu sit. [...] </p>
-
-                            </div>
-                            <div class="social-icon">
-                                <a href="#" class="email fa fa-envelope-o"></a><a href="#" class="facebook fa fa-facebook"></a><a href="#" class="fa linkedin fa-linkedin"></a><a href="#" class="googleplus fa fa-google-plus"></a><a href="#" class="twitter fa fa-twitter"></a>
-                            </div>
-                        </div>
-                    </div>  
-                </section>
-                <!-- sponsored -->
-                <section class="sponsored newsection">
-                    <h2 class="title">Sponsored by</h2>
-                    <div class=" owl-sponsored">
-
-                        <a href="#" class="sponsored-logo">
-                            <img src="img/120x40.gif" alt="">
-                        </a>
-
-                        <a href="#" class="sponsored-logo">
-                            <img src="img/120x40.gif" alt="">
-                        </a>
-
-                        <a href="#" class="sponsored-logo">
-                            <img src="img/120x40.gif" alt="">
-                        </a>
-
-                        <a href="#" class="sponsored-logo">
-                            <img src="img/120x40.gif" alt="">
-                        </a>
-
-                        <a href="#" class="sponsored-logo">
-                            <img src="img/120x40.gif" alt="">
-                        </a>
-
-                        <a href="#" class="sponsored-logo">
-                            <img src="img/120x40.gif" alt="">
-                        </a>
-
-                        <a href="#" class="sponsored-logo">
-                            <img src="img/120x40.gif" alt="">
-                        </a>
-
-                        <a href="#" class="sponsored-logo">
-                            <img src="img/120x40.gif" alt="">
-                        </a>
-                    </div>
-                </section> 
-                <!-- Event Gllery -->
-                <section class="event-gallery newsection">
-                    <h2 class="title">Gallery of Event</h2>
-                    <div class="owl-team">
-
-                        <div class="event-gallery-content">
-                            <div class="gallery-event-img">
-                                <img src="img/515x390.gif" alt="">
-                            </div>
-                            <div class="content">
-                                <h3 class="title">Lodem Ipsum Dolor SIT</h3>
-                                <p>Conference</p>
-                            </div>
-                        </div>	
-
-                        <div class="event-gallery-content">
-                            <div class="gallery-event-img">
-                                <img src="img/515x390.gif" alt="">
-                            </div>
-                            <div class="content">
-                                <h3 class="title">Lodem Ipsum Dolor SIT</h3>
-                                <p>Conference</p>
-                            </div>
-                        </div>	
-
-                        <div class="event-gallery-content">
-                            <div class="gallery-event-img">
-                                <img src="img/515x390.gif" alt="">
-                            </div>
-                            <div class="content">
-                                <h3 class="title">Lodem Ipsum Dolor SIT</h3>
-                                <p>Conference</p>
-                            </div>
-                        </div>	
-
-                        <div class="event-gallery-content">
-                            <div class="gallery-event-img">
-                                <img src="img/515x390.gif" alt="">
-                            </div>
-                            <div class="content">
-                                <h3 class="title">Lodem Ipsum Dolor SIT</h3>
-                                <p>Conference</p>
-                            </div>
-                        </div>	
-
-                        <div class="event-gallery-content">
-                            <div class="gallery-event-img">
-                                <img src="img/515x390.gif" alt="">
-                            </div>
-                            <div class="content">
-                                <h3 class="title">Lodem Ipsum Dolor SIT</h3>
-                                <p>Conference</p>
-                            </div>
-                        </div>	
-
-                    </div>
-                </section>
-
-                <!--Ricket Resgister  -->
-                <section class="ticket-resgister">
-                    <h2 class="title">Get Tickets and Register Now</h2>
-                    <div class="row">
-                        <div class="col-md-4 col-sm-4">
-                            <div class="ticket clearfix">
-                                <h3 class="title">one day tıcket</h3>
-                                <div class="ticket-value"><span>$ 29</span></div>
-                                <ul>
-                                    <li>Full-access to all sessions</li>
-                                    <li>Free wifi at the conference</li>
-                                    <li>Conference plus lunch coffee/snacks</li>
-                                </ul>
-                                <a href="#" class="btn btn-pri"><i class="button-icon fa fa-arrow-circle-o-down"></i>Regıster</a>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4 col-sm-4">
-                            <div class="ticket clearfix">
-                                <h3 class="title">two day tıcket</h3>
-                                <div class="ticket-value"><span>$ 39</span></div>
-                                <ul>
-                                    <li>Full-access to all sessions</li>
-                                    <li>Free wifi at the conference</li>
-                                    <li>Conference plus lunch coffee/snacks</li>
-                                </ul>
-                                <a href="#" class="btn btn-pri"><i class="button-icon fa fa-arrow-circle-o-down"></i>Regıster</a>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4 col-sm-4">
-                            <div class="ticket clearfix">
-                                <h3 class="title">All day tıcket</h3>
-                                <div class="ticket-value"><span>$ 49</span></div>
-                                <ul>
-                                    <li>Full-access to all sessions</li>
-                                    <li>Free wifi at the conference</li>
-                                    <li>Conference plus lunch coffee/snacks</li>
-                                </ul>
-                                <a href="#" class="btn btn-pri"><i class="button-icon fa fa-arrow-circle-o-down"></i>Regıster</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <a href="#" class="btn btn-pri btn-lg">seating is limited ‒ register now</a>
                 </section>
             </div>
             <!-- Col-md-3 -->
@@ -646,79 +219,15 @@
                             <a href="#" class="btn btn-Gradient-pri btn-full"> buy tıcket</a>
                         </div>
 
-
-                    <div class="widget clearfix">
-                        <h3 class="title">Top Popular Post</h3>
-                        <div class="top-ppost">
-                            <div class="date">
-                                <p><span>31</span>FEB</p>
-                            </div>
-                            <div class="content">
-                                <h4  class="title"><a href="#">Using Social Services Increase Your Sales </a></h4>
-                                <a href="#" class="meta"><i class="icon fa fa-map-marker"></i>Istanbul / TR</a>
-                            </div>
-                        </div>
-
-                        <div class="top-ppost">
-                            <div class="date">
-                                <p><span>31</span>FEB</p>
-                            </div>
-                            <div class="content">
-                                <h4  class="title"><a href="#">Using Social Services Increase Your Sales </a></h4>
-                                <a href="#" class="meta"><i class="icon fa fa-map-marker"></i>Istanbul / TR</a>
-                            </div>
-                        </div>
                     </div>
 
-
-                        <div class="widget tag">
-                            <h3 class="title">Tags Widget</h3>  
-                            <a href="#">Event</a><a href="#">Fashion</a><a href="#">Design</a><a href="#">Hotels</a><a href="#">Up Coming</a><a href="#">Venue</a><a href="#">Speaker</a><a href="#" class="last">Conference</a>
-                        </div>  
-
-
-                        <div class="widget news">
-                            <h3 class="title">Join Our Newsletter</h3>
-                            <form>
-                                <div class="form-group">
-                                    <input type="text" placeholder="Select Location" >
-                                    <button class="icon fa fa-paper-plane-o "></button>
-                                </div>
-                                <button class="btn btn-disabled">Sign Up</button>
-                            </form>
-                        </div>
-
-                        <div class="widget">
-                            <h3 class="title">Organizer</h3>
-                            <p>Nullam facilisis metus quis nunc rhoncus fringilla. Donec nec nisl .</p>
-
-                            <a href="#" class="btn btn-black contact-button"><i class="button-icon fa fa-envelope-o"></i>Contact the Organizer</a>
-                            <ul class="social-icon">
-                                <li class="email"><a href="#"><i class=" icon fa fa-user"></i><div class="content">View Profile of EventOrganizer</div></a>
-                                </li>
-                                <li class="facebook"><a href="#"><i class="icon fa fa-facebook"></i><div class="content">facebook.com/EventOrganizer</div></a>
-                                </li>
-                                <li class="twitter"><a href="#"><i class=" icon fa fa-twitter"></i><div class="content">twitter.com/EventOrganizer</div></a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="widget">
-                            <h3 class="title">Need a Event Manager</h3>
-                            <p>Aliquam id metus purus. Etiam turpis eros, lobortis non libero vel, pharetra iaculis augue. [...] </p>
-                            <ul class="widget-list">
-                                <li><span class="blod">phone:</span> +90 555 55 55</li>
-                                <li><span class="blod">Email:<a href="#"> info@example.com</a></li>
-                            </ul>
-                        </div>
-
-                    </aside>
+                  </aside>
                 </div>
             </div> 
         </div> 
 </section>
 <!-- Footer -->
-<footer class="main-footer">
+<!-- <footer class="main-footer">
         <div class="container">
             <div class="row">   
                 <div class="widget col-md-3">
@@ -782,7 +291,7 @@
 
                         </div> 
                     </div>
-                </footer> 
+                </footer>  -->
 
 <script src="js/vendor/jquery-1.10.2.min.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
