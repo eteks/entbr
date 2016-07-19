@@ -8,8 +8,19 @@
     // $apiaccessfunction->access_url = API_URL.'venues/'.$_GET['venues_id'].OAUTH_TOKEN_VARIABLE;
 
     // $venues_data = $apiaccessfunction->apidategetfunction();
+   $event_id = $eventdetails_data['id'];
+   $logo_id = $eventdetails_data['logo_id'];
 
-	
+   // if($eventdetails_data['is_series']!=null) {
+   //      echo "test";
+   // }
+   // else {
+   //      echo "false";
+   //  }
+
+
+
+        
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -182,8 +193,178 @@
 
               
                 </section>
+                <section class="venue_details">
+                    <?php
+                        $venue_id = $eventdetails_data['venue_id'];
+                        $apiaccessfunction->access_url = API_URL.'venues/'.$venue_id.OAUTH_TOKEN_VARIABLE;
+                        $venuedetails_data = $apiaccessfunction->apidategetfunction();
+                     ?>
+                    <h1> Venue Details </h1>
+                   <span class="venue_block"> Address 1 : <?php echo $venuedetails_data['address']['address_1']; ?> </span>
+                    <span class="venue_block"> Address 2 : <?php echo $venuedetails_data['address']['address_2']; ?> </span>
+                    <span class="venue_block"> City : <?php echo $venuedetails_data['address']['city']; ?> </span>
+                    <span class="venue_block"> Region : <?php echo $venuedetails_data['address']['region']; ?> </span>
+                    <span class="venue_block"> Postal_code : <?php echo $venuedetails_data['address']['postal_code']; ?> </span>
+                    <span class="venue_block"> Country : <?php echo $venuedetails_data['address']['country']; ?> </span>
+                    <span class="venue_block"> Latitude : <?php echo $venuedetails_data['address']['latitude']; ?> </span>
+                    <span class="venue_block"> Longitude : <?php echo $venuedetails_data['address']['longitude']; ?> </span>
+                </section>
 
-            
+
+                <section class="venue_id_events_details">
+                        <?php
+                            $apiaccessfunction->access_url = API_URL.'venues/'.$venue_id.'/events'.OAUTH_TOKEN_VARIABLE;
+                            $venue_events_details_data = $apiaccessfunction->apidategetfunction();
+                        ?>
+                    <h1> Venue_ID_Events Details </h1>
+                    <?php   
+                      foreach ($venue_events_details_data['events'] as $key => $value) {    ?>  
+                        <span class="venue_block"> Name_text : <?php echo $value['name']['text']; ?> </span>
+                        <span class="venue_block"> Description_text : <?php echo $value['description']['text']; ?> </span>
+                        <span class="venue_block"> Start_timezone : <?php echo $value['start']['timezone']; ?> </span>
+                        <span class="venue_block"> Start_local : <?php echo $value['start']['local']; ?> </span>
+                        <span class="venue_block"> Start_utc : <?php echo $value['start']['utc']; ?> </span>
+                        <span class="venue_block"> End_timezone : <?php echo $value['end']['timezone']; ?> </span>
+                        <span class="venue_block"> End_local : <?php echo $value['end']['local']; ?> </span>
+                       <span class="venue_block"> End_utc : <?php echo $value['end']['utc']; ?> </span>
+                        <span class="venue_block"> capacity : <?php echo $value['capacity']; ?> </span>
+                        <span class="venue_block"> status : <?php echo $value['status']; ?> </span>
+                        <span class="venue_block"> currency : <?php echo $value['currency']; ?> </span>
+                        <?php
+                            if($value['logo'] != null){
+                        ?>  
+                                <img src="<?php echo $value['logo']['url'] ; ?>" alt="">
+                                <?php
+                            }       else{
+                                ?>
+                                        <img src="img/515x390.gif" alt="">
+                                <?php   
+                                    }
+                                ?>
+                        <?php
+                            }
+                        ?>
+
+                    </section>
+
+                      <section class="events_ticket_details">
+                        <?php
+                            $apiaccessfunction->access_url = API_URL.'events/'.$event_id.'/ticket_classes'.OAUTH_TOKEN_VARIABLE;
+                            $ticket_details_data = $apiaccessfunction->apidategetfunction();
+                        ?>
+                    <h1> Events_Tickets Details </h1>
+                    <?php
+                    foreach ($ticket_details_data['ticket_classes'] as $key => $value) {  ?> 
+                        <span class="venue_block"> Cost_display : <?php echo $value['cost']['display']; ?> </span>
+                        <span class="venue_block"> Cost_currency : <?php echo $value['cost']['currency']; ?> </span>
+                        <span class="venue_block"> Cost_value : <?php echo $value['cost']['value']; ?> </span>
+                        <span class="venue_block"> Cost_major_value : <?php echo $value['cost']['major_value']; ?> </span>
+
+
+
+                               
+
+                         <span class="venue_block"> Fee_display : <?php echo $value['fee']['display']; ?> </span>
+                        <span class="venue_block"> Fee_currency : <?php echo $value['fee']['currency']; ?> </span>
+                        <span class="venue_block"> Fee_value : <?php echo $value['fee']['value']; ?> </span>
+                        <span class="venue_block"> Fee_major_value : <?php echo $value['fee']['major_value']; ?> </span>
+
+
+                         <span class="venue_block"> Tax_display : <?php echo $value['tax']['display']; ?> </span>
+                        <span class="venue_block"> Tax_currency : <?php echo $value['tax']['currency']; ?> </span>
+                        <span class="venue_block"> Tax_value : <?php echo $value['tax']['value']; ?> </span>
+                        <span class="venue_block"> Tax_major_value : <?php echo $value['tax']['major_value']; ?> </span>
+
+                           <span class="venue_block"> Name : <?php echo $value['name']; ?> </span>
+                        <span class="venue_block"> Minimum_quantity : <?php echo $value['minimum_quantity']; ?> </span>
+                        <?php if($value['maximum_quantity']!=null) { ?>
+                        <span class="venue_block"> Maximum_quantity : <?php echo $value['maximum_quantity']; ?> </span>
+                        <?php } ?>
+                        
+                        <span class="venue_block"> Maximum_quantity_per_order : <?php echo $value['maximum_quantity_per_order']; ?> </span>
+                         <span class="venue_block"> On_sale_status : <?php echo $value['on_sale_status']; ?> </span>
+                         <span class="venue_block"> Id : <?php echo $value['id']; ?> </span>
+
+
+                        <?php 
+                        echo "<br>";
+                            }
+                        ?>
+                    </section>
+
+                      <section class="events_ticket_details">
+                    <h1> Events_Tickets_id Details </h1>
+                     <?php
+                    foreach ($ticket_details_data['ticket_classes'] as $key => $value) {  
+                        $ticket_id = $value['id'];
+                        $apiaccessfunction->access_url = API_URL.'events/'.$event_id.'/ticket_classes'.'/ticket_id'.OAUTH_TOKEN_VARIABLE;
+                            $ticket_id_details_data = $apiaccessfunction->apidategetfunction();
+                        ?> 
+
+                          <span class="venue_block"> Id_Cost_display : <?php echo $value['cost']['display']; ?> </span>
+                        <span class="venue_block"> Id_Cost_currency : <?php echo $value['cost']['currency']; ?> </span>
+                        <span class="venue_block"> Id_Cost_value : <?php echo $value['cost']['value']; ?> </span>
+                        <span class="venue_block"> Id_Cost_major_value : <?php echo $value['cost']['major_value']; ?> </span>
+
+                         <span class="venue_block"> Id_Fee_display : <?php echo $value['fee']['display']; ?> </span>
+                        <span class="venue_block"> Id_Fee_currency : <?php echo $value['fee']['currency']; ?> </span>
+                        <span class="venue_block"> Id_Fee_value : <?php echo $value['fee']['value']; ?> </span>
+                        <span class="venue_block"> Id_Fee_major_value : <?php echo $value['fee']['major_value']; ?> </span>
+
+
+                         <span class="venue_block"> Id_Tax_display : <?php echo $value['tax']['display']; ?> </span>
+                        <span class="venue_block"> Id_Tax_currency : <?php echo $value['tax']['currency']; ?> </span>
+                        <span class="venue_block"> Id_Tax_value : <?php echo $value['tax']['value']; ?> </span>
+                        <span class="venue_block"> Id_Tax_major_value : <?php echo $value['tax']['major_value']; ?> </span>
+
+                          <span class="venue_block"> Name : <?php echo $value['name']; ?> </span>
+                        <span class="venue_block"> Minimum_quantity : <?php echo $value['minimum_quantity']; ?> </span>
+                        <?php if($value['maximum_quantity']!=null) { ?>
+                        <span class="venue_block"> Maximum_quantity : <?php echo $value['maximum_quantity']; ?> </span>
+                        <?php } ?>
+                        
+                        <span class="venue_block"> Maximum_quantity_per_order : <?php echo $value['maximum_quantity_per_order']; ?> </span>
+                         <span class="venue_block"> On_sale_status : <?php echo $value['on_sale_status']; ?> </span>
+                         <span class="venue_block"> Id : <?php echo $value['id']; ?> </span>
+
+
+                    <?php
+                        echo "<br>"; 
+                        }
+                    ?>
+                    </section>
+
+
+  
+                    <section class="media_details">
+                    <h1> Media Details </h1>
+                     <?php
+                        $apiaccessfunction->access_url = API_URL.'media/'.$logo_id.OAUTH_TOKEN_VARIABLE;
+                            $media_details_data = $apiaccessfunction->apidategetfunction();
+                        ?> 
+
+                          <span class="venue_block"> Id : <?php echo $media_details_data['id']; ?> </span>
+                           <span class="venue_block"> Url : <?php echo $media_details_data['url']; ?> </span>
+                         <?php if($media_details_data['url']!=null) { ?>
+                            <img src="<?php echo $media_details_data['url'] ; ?>" alt="">
+                            <?php
+                                }   else{
+                            ?>         <img src="img/515x390.gif" alt="">
+                                <?php   
+                                    }
+                                ?>
+                        <span class="venue_block"> Aspect_ratio : <?php echo $media_details_data['aspect_ratio']; ?> </span>
+                        <span class="venue_block"> Id_Cost_major_value : <?php echo $media_details_data['edge_color']; ?> </span>
+                          <span class="venue_block"> Id_Cost_major_value : <?php echo $media_details_data['edge_color_set']; ?> </span>
+
+                    </section>
+
+                     <section class="series_details">
+                    <h1> Series Details </h1>
+                    
+
+                    </section>
+
                 <section class="speaker-event newsection">
                  
                         <div class="event">
@@ -292,6 +473,9 @@
                         </div> 
                     </div>
                 </footer>  -->
+                
+
+         
 
 <script src="js/vendor/jquery-1.10.2.min.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
@@ -342,6 +526,8 @@
 
 </div>
 </script>
+
+
 
         </body>
         </html>

@@ -3,6 +3,7 @@
 	require_once 'apiaccess.php';
 	$apiaccessfunction = new apiaccessfunction();
 	$apiaccessfunction->access_url = API_URL.'categories'.OAUTH_TOKEN_VARIABLE;
+
 	$categories_data = $apiaccessfunction->apidategetfunction();
 ?>
 <!DOCTYPE html>
@@ -64,7 +65,7 @@
             	<div class="container ">
             	<!-- logo  -->
                		<div id="logo">
-						<a href="index.htm"><img src="img/logo.png" alt=""></a> 
+						<a href="index.php"><img src="img/logo.png" alt=""></a> 
 					</div>
 	                <div id="sb-search" class="sb-search">
 	                    <form>
