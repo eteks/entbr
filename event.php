@@ -1,39 +1,37 @@
+
 <?php
 require_once 'settings.php';
 require_once 'apiaccess.php';
 $apiaccessfunction = new apiaccessfunction();
-$apiaccessfunction->access_url = API_URL.'events/search'.OAUTH_TOKEN_VARIABLE;
+
+if(isset($_GET['enddate'])){
+   $start_date=$_GET['startdate'];
+    $new_start_date = date("Y-m-d\TH:i:s", strtotime($start_date));
+    // echo($new_start_date);
+    $end_date=$_GET['enddate'];
+    $new_end_date = date("Y-m-d\TH:i:s", strtotime($end_date));
+    // echo($new_end_date);
+    $apiaccessfunction->access_url = API_URL.'events/search'.OAUTH_TOKEN_VARIABLE.'&venue.city='.$_GET['city'].'&q='.$_GET['key'].'&start_date.range_start='.$new_start_date.'&start_date.range_end='.$new_end_date;
+echo API_URL.'events/search'.OAUTH_TOKEN_VARIABLE.'&venue.city='.$_GET['city'].'&q='.$_GET['key'].'&start_date.range_start='.$new_start_date.'&start_date.range_end='.$new_end_date;
+}
+else{
+    $apiaccessfunction->access_url = API_URL.'events/search'.OAUTH_TOKEN_VARIABLE;
+    // $apiaccessfunction->access_url = API_URL.'events/'.OAUTH_TOKEN_VARIABLE;
+}
 $events = $apiaccessfunction->apidategetfunction();
-// echo "<pre>";
-// print_r($events);
-// echo "</pre>";
-?>
-<?php 
-
-if(isset($_POST['city'])){ $city = $_POST['city']; } 
-if(isset($_POST['startdate'])){ $startdate = $_POST['startdate']; }
-if(isset($_POST['enddate'])){ $enddate = $_POST['enddate']; } 
-if(isset($_POST['key'])){ $key = $_POST['key']; } 
 
 ?>
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html lang="en">
 <head>
-    <meta charset="utf-8">
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Event On</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900,300italic,400italic,600italic,700italic' rel='stylesheet' type='text/css'>
-     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel="apple-touch-icon" href="apple-touch-icon-precomposed.png">
-    <link rel="shortcut icon" href="favicon.png">
 
-    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css">
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
+ <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
    
     <link rel="stylesheet" type="text/css" href="css/owl.carousel.css">
@@ -44,9 +42,6 @@ if(isset($_POST['key'])){ $key = $_POST['key']; }
     <script type="text/javascript">stLight.options({publisher: "ur-b4964695-8b2f-20dd-2ced-c9f6141de24c", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
 </head>
 <body>
-<!--[if lt IE 7]>
-<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-<![endif]-->
 <!-- Header -->
 <header class="header-container">
     <!-- Header Top -->
@@ -81,7 +76,7 @@ if(isset($_POST['key'])){ $key = $_POST['key']; }
                <div id="logo">
 <a href="index.htm"><img src="img/logo.png" alt=""></a> 
 </div>
-                <!-- Search  -->
+<!-- Search  -->
                 <div id="sb-search" class="sb-search">
                     <form>
                         <input class="sb-search-input" placeholder="Search" type="text" name="search" id="search">
@@ -116,7 +111,7 @@ if(isset($_POST['key'])){ $key = $_POST['key']; }
                                 <li><a href="event.html">Event</a></li>
                                 <li><a href="event-sidebar-left.html">Event-Sidebar-Left</a></li>
                                 <li><a href="event-sidebar-right.html">Event-Sidebar-Right</a></li>
-                                 <li><a href="format.php">format</a></li>
+                                  <li><a href="format.php">format</a></li>
                                 <li><a href="event-detail.html">Event Detail</a></li>
                             </ul>
                         </li>
@@ -194,37 +189,38 @@ if(isset($_POST['key'])){ $key = $_POST['key']; }
 
                 <div class="grid-list event-container clearfix">
                     <div class="row">
-                    	<?php 
-	                    	foreach ($events['events'] as $key => $value) {
-                    	?>
+                        <?php 
+                            foreach ($events['events'] as $key => $value) {
+                        ?>
                         <div class="event-border col-md-4">
                             <div class="event clearfix">
                                 <div class="eventsimg">
-                                	<?php
-                                	if($value['logo'] != null){
-                                	?>	
-                                		<img src="<?php echo $value['logo']['url'] ; ?>" alt="">
-                                	<?php
-                                	}else{
-                                	?>
-                                		<img src="img/515x390.gif" alt="">
-                                	<?php	
-                                	}
-                                	?>
+                                    <?php
+                                    if($value['logo'] != null){
+                                    ?>  
+                                        <img src="<?php echo $value['logo']['url'] ; ?>" alt="">
+                                    <?php
+                                    }else{
+                                    ?>
+                                        <img src="img/515x390.gif" alt="">
+                                    <?php   
+                                    }
+                                    ?>
                                    
                                 </div>
                                 <div class="event-content">
                                     <h3 class="title"><a href="event-detail.php?event_id=<?php echo $value['id']; ?>"><?php echo $value['name']['text']; ?></a></h3>
                                     <ul class="meta">
-                                        <li class="date"><i class="icon fa fa-calendar"></i><?php echo $value['start']['local'] ; ?></li><!-- <li><a href="#"><i class="icon fa fa-home"></i> Grand Hotel Califonria</a></li><li><a href="#"><i class="icon fa fa-map-marker"></i>Istanbul / Turkey</a></li> -->
+                                        <li class="date"><i class="icon fa fa-calendar"></i><?php echo $value['start']['local'] ; ?></li>
+                                        <!-- <li><a href="#"><i class="icon fa fa-home"></i> Grand Hotel Califonria</a></li><li><a href="#"><i class="icon fa fa-map-marker"></i>Istanbul / Turkey</a></li> -->
                                     </ul>
                                     <p><?php echo substr ($value['description']['text'], 0, 100); ?></p>
                                 </div>
                             </div>
                         </div>
                         <?php 
-                        	}
-                    	?>
+                            }
+                        ?>
                         
                     </div>
                 </div>
@@ -258,22 +254,23 @@ if(isset($_POST['key'])){ $key = $_POST['key']; }
                            <form action="event.php" method="GET">
                                 <div class="form-input search-location">
                                     <input type="text" name="city" value="" placeholder="Select Location">
+                                    <input type="hidden" name="search" value="true">
                                     <i class="icon icon-s fa fa-search"></i>
                                     <button class="icon fa fa-globe"></button>
                                 </div>
+<!-- 
+ <form action="event.php" method="GET"> -->
 
-                                <div class="form-input datepicker">
-                                    <input name="startdate" placeholder="mm/dd/yy" class="date_timepicker_start">
-                                    <button type="button"  value="open" class="open icon fa fa-calendar"></button>
-                                </div>
+    <input type="text" name="startdate" class="some_class" value="" id="some_class_1"/>
 
-
-                                <div class="form-input datepicker">
-                                    <input name="enddate" placeholder="dd/mm/yy" class="date_timepicker_end" >
-                                    <button type="button"  value="open" class="end icon fa fa-calendar"></button>
-                                </div>
-
-                                <div class="form-input">
+    <input type="text" name="enddate" class="some_class" value="" id="some_class_2"/>
+    
+<script src="js/jquery.js"></script>
+<script src="js/vendor/jquery.datetimepicker.full.js"></script>
+<script>
+$('.some_class').datetimepicker();
+</script>
+<div class="form-input">
                                     <div class="styled-select">
                                       <input type="text" name="key" value="" placeholder="Select Key">
                                     </div>
@@ -371,10 +368,10 @@ if(isset($_POST['key'])){ $key = $_POST['key']; }
             </div> 
         </div> 
     </section>
-    <!-- footer -->
+ <!---footer -->
     <footer class="main-footer">
         <div class="container">
-            <div class="row">	
+            <div class="row">   
                 <div class="widget col-md-3">
                     <div class="about">
                         <h2 class="title">About <span class="border"></span></h2>
@@ -443,4 +440,4 @@ if(isset($_POST['key'])){ $key = $_POST['key']; }
                 <script src="js/main.js"></script>
             </body>
             </html>
-
+</html>

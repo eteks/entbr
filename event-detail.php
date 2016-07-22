@@ -3,11 +3,9 @@
 	require_once 'apiaccess.php';
 	$apiaccessfunction = new apiaccessfunction();
 	$apiaccessfunction->access_url = API_URL.'events/'.$_GET['event_id'].OAUTH_TOKEN_VARIABLE;
-        $eventdetails_data = $apiaccessfunction->apidategetfunction();
+    $eventdetails_data = $apiaccessfunction->apidategetfunction();
 	//echo API_URL.'events/'.$_GET['event_id'].OAUTH_TOKEN_VARIABLE;
-    // $apiaccessfunction->access_url = API_URL.'venues/'.$_GET['venues_id'].OAUTH_TOKEN_VARIABLE;
-
-    // $venues_data = $apiaccessfunction->apidategetfunction();
+  
 
 	
 ?>
@@ -158,8 +156,16 @@
                     <!-- meta -->
                     <ul class="meta clearfix">
                         <li class="date"><i class="icon fa fa-calendar"></i> <?php echo $eventdetails_data['start']['local'] ; ?></li>
-                        <li><a href="#"><i class="icon fa fa-home"></i> Grand Hotel Califonria</a></li>
-                        <li><a href="#"><i class="icon fa fa-map-marker"></i>Istanbul / Turkey</a></li>
+                        <?php
+                        $venue_id = $eventdetails_data['venue_id'];
+                         $apiaccessfunction->access_url = API_URL.'venues/'.$venue_id.OAUTH_TOKEN_VARIABLE;
+                         // echo API_URL.'venues/'.$venue_id.OAUTH_TOKEN_VARIABLE;
+                       $venues_data = $apiaccessfunction->apidategetfunction();
+                        ?> 
+                        <li><a href="#"><i class="icon fa fa-home"></i></a><?php echo $venues_data['address']['city'] ; ?></li>
+                        <li><a href="#"><i class="icon fa fa-map-marker"></i></a><?php echo $venues_data['address']['region'] ;?></li>
+                        <li><a href="#"><i class="icon fa fa-map-marker"></i></a><?php echo $venues_data['address']['postal_code'] ;?></li>
+                        <li><a href="#"><i class="icon fa fa-map-marker"></i></a><?php echo $venues_data['address']['country'] ;?></li>
                     </ul>
                     <!-- event-detail-img -->
                     <div class="event-detail-img">
@@ -184,6 +190,113 @@
                 </section>
 
             
+
+
+                <section classs="organizers_Id_details">
+
+                <ul>
+                   <?php
+                        $organizers_id = $eventdetails_data['organizer_id'];
+                         $apiaccessfunction->access_url = API_URL.'organizers/'.$organizers_id.OAUTH_TOKEN_VARIABLE;
+                         
+                      $organizers_data = $apiaccessfunction->apidategetfunction();
+                        ?> 
+                        <?php echo "<H3> organizers_Id: </H3>";?>
+                        <li><?php echo "<H4>description : </H>";?>
+                        <?php echo "<span> text: </span>";  echo $organizers_data['description']['text'] ; ?></li><br>
+                        <li> <?php echo "<H4>long_description : </H4>";?>
+                        <?php echo "<span> text: </span>"; echo $organizers_data['long_description']['text'] ;?></li>
+                        <br>
+                        <?php
+                                    if($organizers_data['logo'] != null){
+                                    ?>  
+                                        <img src="<?php echo $organizers_data['logo']['url'] ; ?>" alt="">
+                                    <?php
+                                    }else{
+                                    ?>
+                                        <img src="img/515x390.gif" alt="">
+                                    <?php   
+                                    }
+                                    ?><br>                                  
+                       <li> <?php echo "<span> Name: </span>";  echo $organizers_data['name']; ?><br></li>
+                        <li> <?php echo "<span> Twitter: </span>"; echo $organizers_data['twitter'];?><br></li>
+                        <li> <?php echo "<span> Facebook: </span>"; echo $organizers_data['facebook'];?><br><li>
+                    </ul> 
+
+
+                   </section>
+                   <section classs="organizers_id_Events details"> 
+                    <!-- event-detail-img -->
+                       <?php
+                    $organizers_id = $eventdetails_data['organizer_id'];
+                         $apiaccessfunction->access_url = API_URL.'organizers/'.$organizers_id.'/events'.OAUTH_TOKEN_VARIABLE
+                         ;
+                       
+                          $events_data = $apiaccessfunction->apidategetfunction();
+                         ?>
+                         <?php echo "<H3> organizers_id_Events details: </H3>";?>
+                         <ul>
+                          <?php echo "<H4>pagination: </H4>";?> 
+                         <li><?php echo "<span> object_count : </span>"; echo $events_data['pagination']['object_count'] ; ?></li><br>
+                        <li><?php echo "<span>page_number: </span>"; echo $events_data['pagination']['page_number'] ; ?></li><br>
+                        <li><?php echo "<span> page_size: </span>"; echo $events_data['pagination']['page_size'] ; ?></li><br>
+                        <li><?php echo "<span> page_count: </span>"; echo $events_data['pagination']['page_count'] ; ?></li><br>
+                        </ul>
+                          <?php echo "<H4> events: </H4>";?>
+
+                        <?php
+                        foreach ($events_data['events'] as $key => $value) {
+                          echo "<span> name : </span>"; echo $value['name']['text'];echo "<br>";
+                            echo "<span> description : </span>";echo $value['description']['text'];echo "<br>";
+                            echo "<span> timezone : </span>";echo $value['start']['timezone'];echo "<br>";
+                            echo "<span> local : </span>";echo $value['start']['local'];echo "<br>";
+                            echo "<span> utc : </span>";echo $value['start']['utc'];echo "<br>";
+                            echo "<span> timezone : </span>";echo $value['end']['timezone'];echo "<br>";
+                            echo "<span> local : </span>";echo $value['end']['local'];echo "<br>";
+                            echo "<span> utc : </span>";echo $value['end']['utc'];echo "<br>";
+                            echo "<span> created : </span>";echo $value['created'];echo "<br>";
+                            echo "<span> changed : </span>";echo $value['changed'];echo "<br>";
+                            echo "<span> capacity : </span>";echo $value['capacity'];echo "<br>";
+                           echo "<span> status : </span>"; echo $value['status'];echo "<br>";
+                            echo "<span>currency : </span>";echo $value['currency'];echo "<br>";
+                            echo "<span> listed : </span>";echo $value['listed'];echo "<br>";
+                            echo "<span> shareable: </span>";echo $value['shareable'];echo "<br>";
+                            echo "<span> online_event : </span>";echo $value['online_event'];echo "<br>";
+                             echo "<span> tx_time_limit : </span>";echo $value['tx_time_limit'];echo "<br>";
+                             echo "<span> hide_start_date : </span>";echo $value['hide_start_date'];echo "<br>";
+                             echo "<span> hide_end_date: </span>";echo $value['hide_end_date'];echo "<br>";
+                             echo "<span> locale : </span>";echo $value['locale'];echo "<br>";
+                            echo "<span> is_locked : </span>"; echo $value['is_locked'];echo "<br>";
+                             echo "<span> privacy_setting : </span>";echo $value['privacy_setting'];echo "<br>";
+                             echo "<span> is_series : </span>";echo $value['is_series'];echo "<br>";
+                             echo "<span> is_series_parent : </span>";echo $value['is_series_parent'];echo "<br>";
+                             echo "<span> is_reserved_seating: </span>";echo $value['is_reserved_seating'];echo "<br>";
+                             echo "<span>logo_id: </span>";echo $value['logo_id'];echo "<br>";
+                             echo "<span>organizer_id: </span>";echo $value['organizer_id'];echo "<br>";
+                             echo "<span>venue_id: </span>";echo $value['venue_id'];echo "<br>";
+                             echo "<span>category_id : </span>";echo $value['category_id'];echo "<br>";
+                             echo "<span> subcategory_id: </span>";echo $value['subcategory_id'];echo "<br>";
+                             echo "<span> format_id: </span>";echo $value['format_id'];echo "<br>";
+                                                   if($value['logo'] != null){ ?>
+                                      
+                                        <img src="<?php echo $value['logo']['url'] ; ?>" alt="">
+                                     
+                                    
+                                   <?php  }else{ ?>
+                            
+                                        <img src="img/515x390.gif" alt="">
+                                    <?php   
+                                    }
+                                
+                                                   } ?> 
+                    
+                    </section> 
+
+
+
+
+
+
                 <section class="speaker-event newsection">
                  
                         <div class="event">
