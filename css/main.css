@@ -4017,7 +4017,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b3c4e', end
   -o-transform: rotateX(0deg);
   transform: rotateX(0deg);
 }
+
 .some_class {
     margin: 0 0 11px;
     width: 117px;
+}
+.venue_block {
+	display: block;
+}
+#map_area {
+	height: 200px;
+	width: 300px;
 }
